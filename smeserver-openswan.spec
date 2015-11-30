@@ -1,6 +1,6 @@
-%define name smeserver-libreswan
+%define name smeserver-openswan
 %define version 0.5
-%define release 8
+%define release 9
 Summary: Plugin to enable IPSEC connections
 Name: %{name}
 Version: %{version}
@@ -12,14 +12,17 @@ Source: %{name}-%{version}.tar.gz
 BuildRoot: /var/tmp/%{name}-%{version}
 BuildArchitectures: noarch
 BuildRequires: e-smith-devtools
-Requires:  e-smith-release >= 9.0
-Requires:  libreswan >= 3.14
+Requires:  e-smith-release >= 8.0
+Requires:  openswan >= 2.6.38
 AutoReqProv: no
 
 %description
-Libreswan is a free software implementation of the most widely supported and standarised VPN protocol based on ("IPsec") and the Internet Key Exchange ("IKE")
+Openswan is a free software implementation of the most widely supported and standarised VPN protocol based on ("IPsec") and the Internet Key Exchange ("IKE")
 
 %changelog
+
+* Wed Nov 25 2015 John Crisp <jcrisp@safeandsoundit.co.uk> 0.5-9
+- Copied code to openswan contrib as libreswan contrib is now LibreSwan specific
 
 * Wed Nov 25 2015 John Crisp <jcrisp@safeandsoundit.co.uk> 0.5-8
 - Revised masq templates - disable on ipsec disable
