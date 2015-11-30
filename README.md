@@ -1,4 +1,4 @@
-smeserver-libreswan
+smeserver-openswan
 ===================
 
-Koozali SME Server LibreSwan contrib
+Koozali SME Server OpenSwan contrib
