@@ -1,19 +1,14 @@
 V 0.5.x Notes
 
-<<<<<<< HEAD
-Note a new setting wil be created in the ipsec_connections db called 'PreviousState' by the script
-
 =======
+
 ** Note that nothing is guaranteed to work and it may break your system or deny you access **
 
 Also note that on occasion ipsec can get hung - I think this is when you enable/disable a few times quite quickly and the connection is still waiting on a timeout
 
 
+Note a new setting wil be created in the ipsec_connections db called 'PreviousState' by the script
 
-Various refinements and bug fixes.
-
-Note a new setting will be created in the ipsec_connections db called 'PreviousState'
->>>>>>> smeserver-libreswan-0.5
 This tracks changes made so ipsec-update knows what to do on state changes. There is no need to touch this setting
 
 #Per connection settings like this
@@ -40,11 +35,10 @@ WorkToVoip=ipsec
 
 Config Defaults
 
-<<<<<<< HEAD
+
 config set ipsec service status disabled connectiontype tunnel left %defaultroute ikelifetime 3600s salifetime 28800s dpdaction restart dpddelay 30 dpdtimeout 10 pfs yes auto start access private status disabled UDPPort 500
-=======
-config set ipsec service status disabled connectiontype tunnel left %defaultroute ikelifetime 28800s keylife 3600s dpdaction restart dpddelay 30 dpdtimeout 10 pfs yes auto start security secret salifetime 28800s
->>>>>>> smeserver-libreswan-0.5
+
+You need to set status enabled which will set access = public to enable masq templates
 
 Additional db entries
 
@@ -53,10 +47,11 @@ Set mtu as in Config or ipsec connections if required
 Add rsasigs
 
 set
-security rsasig
-certname "Your cert nickname" - find with  'certutil -d . -L |grep u,u,u'
 
-https://libreswan.org/man/ipsec.conf.5.html
+security rsasig
+
+leftid = local id - e.g. @Local
+rightid= remote id - e.g. @Remote
 
 ike = Some examples are ike=3des-sha1,aes-sha1, ike=aes, ike=aes128-md5;modp2048, ike=aes128-sha1;dh22, ike=3des-md5;modp1024,aes-sha1;modp1536 or ike=modp1536
 phase2alg = aes-sha1 | similar to above
@@ -101,8 +96,6 @@ Any question then please add a bug here or ask at forums.contribs.org in the Con
 
 Notes to self on Firewalls
 
-<<<<<<< HEAD
-Set access public/private - we need this for some firewall original rules to allow port 500 and now to enable rules for ESP on IP 50
 =======
 IPSec (VPN tunneling) uses the following ports:
 
@@ -115,16 +108,14 @@ L2TPD
 1701 (L2TP)
 
 
->>>>>>> smeserver-libreswan-0.5
-
 the rp_filter and send redirects are directly manipulated by the ipsec-update script
+larval drop is set for v8
 
-We could possibly set the firewall ports in the main config db and dispense with the masq fragment later.
-<<<<<<< HEAD
+
 [Done]
 =======
 [11/2015 Done for ipsec - just need a postrouting config]
->>>>>>> smeserver-libreswan-0.5
+
 
 http://wiki.contribs.org/DB_Variables_Configuration#IPTables_firewall_.28masq.29
 
