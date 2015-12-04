@@ -20,7 +20,7 @@ AutoReqProv: no
 Openswan is a free software implementation of the most widely supported and standarised VPN protocol based on ("IPsec") and the Internet Key Exchange ("IKE")
 
 %changelog
-* Wed Nov 30 2015 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-1
+* Sat Dec 05 2015 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-1
 - New Branch for openswan on v8
 
 * Wed Nov 25 2015 John Crisp <jcrisp@safeandsoundit.co.uk> 0.5-9
