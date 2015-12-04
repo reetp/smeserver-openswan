@@ -1,6 +1,6 @@
 %define name smeserver-openswan
-%define version 0.5
-%define release 9
+%define version 0.6
+%define release 1
 Summary: Plugin to enable IPSEC connections
 Name: %{name}
 Version: %{version}
@@ -21,7 +21,7 @@ Openswan is a free software implementation of the most widely supported and stan
 
 %changelog
 
-* Wed Nov 25 2015 John Crisp <jcrisp@safeandsoundit.co.uk> 0.5-9
+* Wed Dec 04 2015 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-1
 - Copied code to openswan contrib as libreswan contrib is now LibreSwan specific
 
 * Wed Nov 25 2015 John Crisp <jcrisp@safeandsoundit.co.uk> 0.5-8
