@@ -1,10 +1,10 @@
 %define name smeserver-openswan
 %define version 0.6
-%define release 1
+%define release 2
 Summary: Plugin to enable IPSEC connections
 Name: %{name}
 Version: %{version}
-Release: %{release}
+Release: %{release}%{?dist}
 License: GNU GPL version 2
 URL: http://libreswan.org/
 Group: SMEserver/addon
@@ -20,6 +20,9 @@ AutoReqProv: no
 Openswan is a free software implementation of the most widely supported and standarised VPN protocol based on ("IPsec") and the Internet Key Exchange ("IKE")
 
 %changelog
+* Wed Mar 09 2016 JP Pialasse <tests@pialasse.com> 0.6-2.sme
+- first import in SME buildsys
+
 * Sat Dec 05 2015 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-1
 - New Branch for openswan on v8
 
