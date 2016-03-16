@@ -9,6 +9,7 @@ License: GNU GPL version 2
 URL: http://libreswan.org/
 Group: SMEserver/addon
 Source: %{name}-%{version}.tar.gz
+Patch1: smeserver-libreswan-fix-masq-templates.patch
 BuildRoot: /var/tmp/%{name}-%{version}
 BuildArchitectures: noarch
 BuildRequires: e-smith-devtools
@@ -20,8 +21,14 @@ AutoReqProv: no
 Openswan is a free software implementation of the most widely supported and standarised VPN protocol based on ("IPsec") and the Internet Key Exchange ("IKE")
 
 %changelog
-* Thu Mar 10 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-3.sme
+* Wed Mar 16 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-3.sme
 - Fix masq templates for missing db keys on install
+- Move pluto.log to /var/log/pluto
+- regenerate masq template on ipsec-update
+- change wiki location page
+- add sysctl.conf template
+- modify masq templates for ipsec status enabled/disabled
+- only load ipsec.conf rather than *.conf to avoid loading v6neighbor-hole.conf
 
 * Wed Mar 09 2016 JP Pialasse <tests@pialasse.com> 0.6-2.sme
 - first import in SME buildsys
@@ -101,6 +108,7 @@ Openswan is a free software implementation of the most widely supported and stan
 
 %prep
 %setup
+%patch1 -p1
 
 %build
 perl createlinks
