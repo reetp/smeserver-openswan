@@ -9,7 +9,7 @@ License: GNU GPL version 2
 URL: http://libreswan.org/
 Group: SMEserver/addon
 Source: %{name}-%{version}.tar.gz
-Patch1: smeserver-libreswan-fix-masq-templates.patch
+Patch1: smeserver-openswan-fix-masq-templates.patch
 BuildRoot: /var/tmp/%{name}-%{version}
 BuildArchitectures: noarch
 BuildRequires: e-smith-devtools
