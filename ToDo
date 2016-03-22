@@ -1,4 +1,5 @@
 ToDo
 
 * Remove debugging code
-* Refine redirects
+* Stop/start individual connections - some code is alread there
+* Enable pluto debug

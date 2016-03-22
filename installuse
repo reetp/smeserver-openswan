@@ -2,8 +2,7 @@ Note this is fo v9/Libre
 
 Different for v8 but not fixed the notes yet
 
-Add reetp and epel repos
-http://wiki.contribs.org/User:ReetP
+Add epel repos
 http://wiki.contribs.org/Epel
 
 # signal-event yum-modify
@@ -141,9 +140,7 @@ ESPin=0B ESPout=0B! ESPmax=4194303B
 000
 ----snip----
 
-# ping "local ip of remote system eg 192.168.1.1 or any other systems on the 
-
-connected lan"
+# ping "local ip of remote system eg 192.168.1.1 or any other systems on the connected lan"
 
 In server-manager add additional local networks
 In server-manager make sure Secure Shell Settings set to 

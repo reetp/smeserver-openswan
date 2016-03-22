@@ -21,7 +21,8 @@ AutoReqProv: no
 Openswan is a free software implementation of the most widely supported and standarised VPN protocol based on ("IPsec") and the Internet Key Exchange ("IKE")
 
 %changelog
-* Wed Mar 16 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-3.sme
+* Tue Mar 22 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-3.sme
+- bump version 0.7-1 to match smeserver-libreswan
 - Fix masq templates for missing db keys on install
 - Move pluto.log to /var/log/pluto
 - regenerate masq template on ipsec-update
