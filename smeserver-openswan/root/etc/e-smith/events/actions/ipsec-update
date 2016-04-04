@@ -281,7 +281,7 @@ sub setRedirects {
       or die("Ipsec Error - A problem occurred with sysctl: $?");
 
     # On v8 this is set to 0 so we would need
-    system("/sbin/sysctl -w net.core.xfrm_larval_drop=0") == 0 or die("A problem occurred with sysctl: $?");
+    system("/sbin/sysctl -w net.core.xfrm_larval_drop=1") == 0 or die("A problem occurred with sysctl: $?");
 
 }
 
