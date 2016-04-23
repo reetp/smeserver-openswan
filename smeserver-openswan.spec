@@ -1,6 +1,6 @@
 %define name smeserver-openswan
 %define version 0.6
-%define release 6
+%define release 7
 Summary: Plugin to enable IPSEC connections
 Name: %{name}
 Version: %{version}
@@ -13,6 +13,7 @@ Patch1: smeserver-openswan-fix-masq-templates.patch
 Patch2: smeserver-openswan-move-logfile.patch
 Patch3: smeserver-openswan-add-debug-key.patch
 Patch4: smeserver-openswan-fix-rsa-id.patch
+Patch5: smeserver-openswan-fix-createlinks.patch
 BuildRoot: /var/tmp/%{name}-%{version}
 BuildArchitectures: noarch
 BuildRequires: e-smith-devtools
@@ -24,6 +25,9 @@ AutoReqProv: no
 Openswan is a free software implementation of the most widely supported and standarised VPN protocol based on ("IPsec") and the Internet Key Exchange ("IKE")
 
 %changelog
+* Sat Apr 23 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-7.sme
+- Fix typo in createlinks for sysctl.conf
+
 * Mon Apr 04 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-6.sme
 - Fix ID in ipsec.secrets if ID is set
 - Fix xfrm_larval_drop setting in ipsec-update
@@ -128,6 +132,7 @@ Openswan is a free software implementation of the most widely supported and stan
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 perl createlinks
