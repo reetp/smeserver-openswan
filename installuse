@@ -1,26 +1,21 @@
-Add reetp and epel repos
-http://wiki.contribs.org/User:ReetP
+Note this is for v8/Open
+
+
+Add epel repos
 http://wiki.contribs.org/Epel
 
 # signal-event yum-modify
 
-Following dependency is needed, not avail from epel etc.
 
-Processing Dependency: libevent-2.0.so.5()(64bit) for package:
-libreswan-3.15-1.el6.x86_64
-Requires: libevent_pthreads-2.0.so.5()(64bit)
+# yum --enablerepo=smedev,epel install smeserver-openswan
 
-# [root@sme91x64 ~]# wget ftp://ftp.nohats.ca/rhel6/libevent2-2.0.21-1.el6.x86_64.rpm
-# yum localinstall libevent2-2.0.21-1.el6.x86_64.rpm
-
-# yum --enablerepo=reetp,epel install smeserver-libreswan
 
 # signal-event post-upgrade; signal-event reboot
 
 Check the status of ipsec - default db entries
-# config show ipsec
+ config show ipsec
 
-[root@sme91x64 ~]# config show ipsec
+[root@sme82x64 ~]# config show ipsec
 ipsec=service
     UDPPort=500
     access=public
@@ -56,6 +51,8 @@ Should be enabled, if not enable, should be auto start
 # db ipsec_connections setprop xyz status enabled
 # db ipsec_connections setprop xyz auto start
 
+# Add remote network to Local networks in server-manager
+
 # signal-event ipsec-update
 
 # 25/11/2015 masq templates updated now
@@ -72,6 +69,9 @@ xyz=ipsec
     rightsubnet=192.168.#.0/24
     status=enabled
 
+
+-- Extra testing/dev notes
+
 Fix errors from # ipsec verify with rp_filters
 
 Make a .sh file and paste the following and run it
@@ -81,33 +81,34 @@ echo 0 > $each/accept_redirects
 echo 0 > $each/send_redirects
 echo 0 > $each/rp_filter
 done
-[root@sme90x64 ~]# /root/brute
+[root@sme82x64 ~]# /root/brute
 
-[root@sme90x64 ~]# service ipsec restart
+[root@sme82x64 ~]# service ipsec restart
 
 if it is running
 # ipsec verify
 
-[root@sme91x64 ~]# ipsec verify
-Verifying installed system and configuration files
+Openswan may show FAILED for forwarding but this is due to an older version of perl being used. Please ignore
 
-Version check and ipsec on-path                         [OK]
-Libreswan 3.15 (netkey) on 2.6.32-573.8.1.el6.x86_64
-Checking for IPsec support in kernel                    [OK]
- NETKEY: Testing XFRM related proc values
-         ICMP default/send_redirects                    [OK]
-         ICMP default/accept_redirects                  [OK]
-         XFRM larval drop                               [OK]
-Pluto ipsec.conf syntax                                 [OK]
-Hardware random device                                  [N/A]
-Two or more interfaces found, checking IP forwarding    [OK]
-Checking rp_filter                                      [OK]
-Checking that pluto is running                          [OK]
-Checking 'ip' command                                   [OK]
-Checking 'iptables' command                             [OK]
-Checking 'prelink' command does not interfere with FIPS [PRESENT]
-Checking for obsolete ipsec.conf options                [OK]
-Opportunistic Encryption                                [DISABLED]
+
+[root@sme82x64 ~]# ipsec verify
+Checking your system to see if IPsec got installed and started correctly:
+Version check and ipsec on-path                             	[OK]
+Linux Openswan U2.6.38/K2.6.18-409.el5 (netkey)
+Checking for IPsec support in kernel                        	[OK]
+ SAref kernel support                                       	[N/A]
+ NETKEY:  Testing XFRM related proc values                  	[OK]
+	[OK]
+	[OK]
+Checking that pluto is running                              	[OK]
+ Pluto listening for IKE on udp 500                         	[OK]
+ Pluto listening for NAT-T on udp 4500                      	[OK]
+Two or more interfaces found, checking IP forwarding        	[FAILED]
+Checking NAT and MASQUERADEing                              	[OK]
+Checking for 'ip' command                                   	[OK]
+Checking /bin/sh is not /bin/dash                           	[OK]
+Checking for 'iptables' command                             	[OK]
+Opportunistic Encryption Support                            	[DISABLED]
 
 # ipsec whack --status
 
@@ -137,9 +138,7 @@ ESPin=0B ESPout=0B! ESPmax=4194303B
 000
 ----snip----
 
-# ping "local ip of remote system eg 192.168.1.1 or any other systems on the 
-
-connected lan"
+# ping "local ip of remote system eg 192.168.1.1 or any other systems on the connected lan"
 
 In server-manager add additional local networks
 In server-manager make sure Secure Shell Settings set to 

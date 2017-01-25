@@ -1,14 +1,19 @@
 %define name smeserver-openswan
-%define version 0.5
-%define release 9
+%define version 0.6
+%define release 7
 Summary: Plugin to enable IPSEC connections
 Name: %{name}
 Version: %{version}
-Release: %{release}
+Release: %{release}%{?dist}
 License: GNU GPL version 2
 URL: http://libreswan.org/
 Group: SMEserver/addon
 Source: %{name}-%{version}.tar.gz
+Patch1: smeserver-openswan-fix-masq-templates.patch
+Patch2: smeserver-openswan-move-logfile.patch
+Patch3: smeserver-openswan-add-debug-key.patch
+Patch4: smeserver-openswan-fix-rsa-id.patch
+Patch5: smeserver-openswan-fix-createlinks.patch
 BuildRoot: /var/tmp/%{name}-%{version}
 BuildArchitectures: noarch
 BuildRequires: e-smith-devtools
@@ -20,6 +25,36 @@ AutoReqProv: no
 Openswan is a free software implementation of the most widely supported and standarised VPN protocol based on ("IPsec") and the Internet Key Exchange ("IKE")
 
 %changelog
+* Sat Apr 23 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-7.sme
+- Fix typo in createlinks for sysctl.conf
+
+* Mon Apr 04 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-6.sme
+- Fix ID in ipsec.secrets if ID is set
+- Fix xfrm_larval_drop setting in ipsec-update
+
+* Thu Mar 24 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-5.sme
+- Add debug db key to /etc/ipsec.conf
+- Remove setting public/private keys as they won't affect unless templates are re-expanded
+- Set xfrm_larval_drop drop correctly
+- minor formatting
+
+* Thu Mar 24 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-4.sme
+- split patch file to match libreswan
+
+* Tue Mar 22 2016 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-3.sme
+- Fix masq templates for missing db keys on install
+- Move pluto.log to /var/log/pluto
+- regenerate masq template on ipsec-update
+- change wiki location page
+- add sysctl.conf template
+- modify masq templates for ipsec status enabled/disabled
+- only load ipsec.conf rather than *.conf to avoid loading v6neighbor-hole.conf
+
+* Wed Mar 09 2016 JP Pialasse <tests@pialasse.com> 0.6-2.sme
+- first import in SME buildsys
+
+* Sat Dec 05 2015 John Crisp <jcrisp@safeandsoundit.co.uk> 0.6-1
+- New Branch for openswan on v8
 
 * Wed Nov 25 2015 John Crisp <jcrisp@safeandsoundit.co.uk> 0.5-9
 - Copied code to openswan contrib as libreswan contrib is now LibreSwan specific
@@ -93,6 +128,11 @@ Openswan is a free software implementation of the most widely supported and stan
 
 %prep
 %setup
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
 perl createlinks
@@ -121,7 +161,7 @@ rm -rf %{name}-%{version}
 /sbin/init q
 
 
-echo "see http://wiki.contribs.org/IPSEC"
+echo "see http://wiki.contribs.org/VPN"
 
 %postun
 /sbin/e-smith/expand-template /etc/rc.d/init.d/masq

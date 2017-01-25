@@ -1,11 +1,10 @@
-V 0.5.x Notes
-
-=======
+smeserver-openswan-0.6.x
 
 ** Note that nothing is guaranteed to work and it may break your system or deny you access **
 
 Also note that on occasion ipsec can get hung - I think this is when you enable/disable a few times quite quickly and the connection is still waiting on a timeout
 
+=======
 
 Note a new setting wil be created in the ipsec_connections db called 'PreviousState' by the script
 
@@ -58,38 +57,16 @@ phase2alg = aes-sha1 | similar to above
 
 Note there is no DB entry for phase2 - Libreswan defaults to ESP so unless you use AH (not recommended) leave as is
 
+
 ----------------------------------------------------------
 
-[root@test ipsec.d]# config show ipsec
-ipsec=service
-    UDPPort=500
-    access=public
-    auto=add
-    connectiontype=tunnel
-    dpdaction=restart
-    dpddelay=30
-    dpdtimeout=10
-    ikelifetime=3600s
-    left=%defaultroute
-    pfs=yes
-    salifetime=28800s
-    security=secret
-    status=enabled
-
-
-
-Any setting in the db ipsec_connections will override the default settings in the config db (or should !) If there is no setting the system will set a default.
-
-There is now a new action script called ipsec-update.
-
-Make your changes and then signal-event ipsec-update to action them.
 
 Note that as it is very difficult currently to detect connections that are up (something libreswan are working on) the script does not try to detect connection status so it will reset them currently.
 
-Just discovered we can probably do this with ipsec whack --status |grep "Ipsec SA established" (Only tells if it is up, not if it is active)
+Just discovered we can probably do this with ipsec whack --status |grep -i "Ipsec SA established" (Only tells if it is up, not if it is active)
 https://lists.libreswan.org/pipermail/swan/2015/001083.html
 
-Any question then please add a bug here or ask at forums.contribs.org in the Contribs sections.
+Any question then please ask at forums.contribs.org in the Contribs sections.
 
 
 ----------------------------------------------------------
@@ -108,16 +85,19 @@ L2TPD
 1701 (L2TP)
 
 
+
+
 the rp_filter and send redirects are directly manipulated by the ipsec-update script
 larval drop is set for v8
 
 
 [Done]
-=======
+
 [11/2015 Done for ipsec - just need a postrouting config]
 
 
 http://wiki.contribs.org/DB_Variables_Configuration#IPTables_firewall_.28masq.29
+
 
 ipsec only - note that ESP traffic runs on 50 and AH needs 51
 
@@ -128,3 +108,6 @@ l2tpd
 
 config setprop ipsec access public UDPPorts 500,4500,1701 TCPPort 50,51
 
+certname "Your cert nickname" - find with  'certutil -d . -L |grep u,u,u'
+
+http://swan.libreswan.narkive.com/lg70MHRr/plicbd-pluto-6857-reapchild-failed-with-errno-10-no-child-processes
